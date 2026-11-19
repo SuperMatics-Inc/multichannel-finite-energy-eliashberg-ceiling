@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "Please cite the paper and replay supplement."
+title: "Moment-norm ceilings √(41/30)/(2π) and √(45/32)/(2π) for multichannel Eliashberg branches"
+type: software
+version: 1.0.0
+doi: 10.5281/zenodo.24380827
+repository-code: https://github.com/SuperMatics-Inc/multichannel-finite-energy-eliashberg-ceiling
+authors:
+  - family-names: Rens
+    given-names: Davis
+    affiliation: SuperMatics Inc.
+    orcid: https://orcid.org/0000-0001-5839-5197
+license: MIT
+preferred-citation:
+  type: article
+  title: "Moment-norm ceilings √(41/30)/(2π) and √(45/32)/(2π) for multichannel Eliashberg branches"
+  doi: 10.5281/zenodo.24380829
+  authors:
+    - family-names: Rens
+      given-names: Davis
+      affiliation: SuperMatics Inc.
+      orcid: https://orcid.org/0000-0001-5839-5197

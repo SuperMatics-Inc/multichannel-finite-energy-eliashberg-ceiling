@@ -1,0 +1,519 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\DOI}[1]{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+\newcommand{\us}{\_\allowbreak}
+\emergencystretch=2em
+\hyphenation{Zenodo}
+\def\UrlBreaks{\do\/}
+\def\UrlBigBreaks{}
+\newcommand{\kB}{k_{\mathrm B}}
+\newcommand{\Tlin}{T_{\mathrm{lin}}}
+\newcommand{\Cinf}{C_\infty}
+\newcommand{\Ccent}{C_{\mathrm{cent}}}
+\newcommand{\Ccaus}{C_{\mathrm{caus}}}
+\newcommand{\dstar}{d_{*}}
+\newcommand{\Croute}{C_{\mathrm{route}}}
+
+\title{Moment-norm ceilings $\sqrt{41/30}/(2\pi)$ and $\sqrt{45/32}/(2\pi)$\\ for multichannel Eliashberg branches}
+\author{Davis Rens\\SuperMatics Inc.\\\href{https://orcid.org/0000-0001-5839-5197}{ORCID 0000-0001-5839-5197}}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the linear onset temperature of a reciprocal multichannel Eliashberg model with channel-dependent, energy-dependent densities of states satisfies $\kB\Tlin<C\sqrt{\rho}$, where $\rho$ is the norm of the glue moment matrix. The constant is $C=\sqrt{41/30}/(2\pi)\approx0.18605932$ on centered normal branches and $C=\sqrt{45/32}/(2\pi)\approx0.18873455$ on a wider causal class defined by Harnack inequalities. These lie $1.82\%$ and $3.29\%$ above the sharp scalar constant $\Cinf\approx0.18272625$, compared with $6.96\%$ for the previously released constant $\sqrt{377/250}/(2\pi)$. The new ingredient is a two-stage cascade in which the interaction of the first tail frequency with the higher tail frequencies raises its effective normal mass, together with a head criterion that is valid for every pair of head weights. Two independent exact rational coverings of a two-parameter edge domain certify the remaining inequality, and finite Lean~4 lemmas check the algebraic identities. We also show that a proof of the same shape, built from one frozen-weight inequality per edge over the weight class used here, cannot give a constant below $0.185411$ on centered branches, which leaves more than $80\%$ of the interval between $\Cinf$ and the centered constant beyond the reach of that method. The result concerns a linearised model and not any material. Whether $\Cinf$ is itself the sharp constant for coupled channels is left open.
+\end{abstract}
+
+\begin{center}\small
+Article DOI: \DOI{10.5281/zenodo.24380829}\\
+Supplement DOI: \DOI{10.5281/zenodo.24380827}\\
+Source repository: \url{https://github.com/SuperMatics-Inc/multichannel-finite-energy-eliashberg-ceiling}
+\end{center}
+
+\section{Introduction}
+
+Linearised Eliashberg theory asks when a normal state first becomes unstable to pairing. One fixes the normal branch, takes the pairing interaction to be a retarded glue spectrum, and studies a quadratic form whose negative directions mark the temperatures at which a gap function can grow. A moment ceiling is an upper bound on the largest such temperature in terms of a single number built from the glue, its total moment norm $\rho$, with the electronic structure entering only through the height of the density of states. A ceiling of this kind is a theorem about the model. It is not a bound on the transition temperature of any material, whose normal state, vertex corrections and competing orders lie outside the model, and nothing below should be read as a prediction for a compound.
+
+For a single channel the sharp ceiling is known, for a constant density of states in~\cite{gsi} and for an arbitrary bounded energy-dependent one in~\cite{finite}: $\kB\Tlin<\Cinf\sqrt{\rho}$ with $\Cinf\approx0.1827262478$, and no smaller constant works. Several coupled channels with different, energy-dependent densities of states are harder, and the reason is easy to describe. The pairing term joining two channels carries the product of their density-of-states averages, while the normal term that opposes pairing in a given channel carries only that channel's own average. A narrow channel therefore weakens its own normal term and its pairing with a wide partner at the same rate, but leaves the wide channel's normal term untouched, so the balance on which the scalar argument rests depends on the two weights separately.
+
+Two earlier preprints approached this problem with explicit constants. The first~\cite{predecessor} (DOI~\DOI{10.5281/zenodo.24372930}) obtained $U=\sqrt{6466219/3576050}/(2\pi)\approx0.2140146706$ on centered branches. The second~\cite{optimum} (DOI~\DOI{10.5281/zenodo.24374032}) lowers this first to $C_1=\sqrt{413/250}/(2\pi)\approx0.2045620904$, by an additive first-frequency comparison, and then, by retaining twenty tail frequencies, to
+\[
+C_{21}=\frac{\sqrt{377/250}}{2\pi}\approx0.1954433070,
+\]
+which is $6.960\%$ above $\Cinf$.
+
+The present paper lowers the constant again. On centered branches it is $\Ccent=\sqrt{41/30}/(2\pi)\approx0.1860593214$, which is $1.824\%$ above $\Cinf$. On a wider class of causal branches, defined by Harnack inequalities alone, it is $\Ccaus=\sqrt{45/32}/(2\pi)\approx0.1887345454$, which is $3.288\%$ above $\Cinf$. Measured against the interval $[\Cinf,C_{21}]$ left open by the second preprint, the two steps close $73.79\%$ and $52.75\%$ of it, and the centered bound closes $89.35\%$ of the bracket $[\Cinf,U]$ left by the first.
+
+The new ingredient is easiest to explain by what limited the earlier argument. There, the head frequency was completed against each of twenty tail frequencies, using a static share of the normal mass of every tail mode. At the least favourable imbalance between channels the first tail frequency then fell short of its stability threshold $2/9$ as soon as the reserve approached $0.30$, and the method stalled at the reserve $247/1000$. Here the first tail frequency is stabilised first, by its own interactions with the higher tail frequencies, which raises its effective normal mass before the head is touched. Two further changes matter. The head is controlled by an exact determinant criterion in the two unknown head weights, instead of a worst-case reduction to binary masks, and the lower envelope of the centered Poisson weights is used in place of the Harnack lines alone. Together they lift the certified reserve to $317/1000$ on centered branches and $119/400$ on the causal class.
+
+Dolgov and Golubov~\cite{dolgov} showed that, for attractive multiband interactions with nonzero average coupling, treated in the Born approximation, the upper bound on $T_c$ in the superstrong-coupling regime is governed by a partial-density-of-states-weighted average of the coupling moments, and that the larger bound set by the maximal eigenvalue of the moment matrix is not reached. That result is asymptotic and for attractive couplings; it is not a bound over arbitrary matrices. Section~\ref{sec:soft} records a limit statement in the same spirit as an explicit corollary of earlier released work, with its hypotheses stated in full.
+
+The plan of the paper is as follows. Section~\ref{sec:setting} fixes the model and states the theorem. Section~\ref{sec:reduction} reduces it to an inequality for one pair of channels at one energy. Section~\ref{sec:proof} proves that inequality, up to a finite computation which Section~\ref{sec:cert} describes. Section~\ref{sec:soft} treats the soft limit, and Section~\ref{sec:barrier} shows how far an inequality of this kind can take the method. Section~\ref{sec:open} states what remains open, and Section~\ref{sec:repro} explains how to replay the certificates.
+
+\section{Setting and main result}\label{sec:setting}
+
+\subsection{The model and its normal branch}
+
+Write $\tau=\kB T$. The channel space is a finite set with positive height weights $\eta_x$. Channel $x$ has a measurable density of states $0\le N_x(\xi)\le N_{\max,x}$, whose peak height is the weight of the channel, $N_{\max,x}=\eta_x$, and an energy-independent radial vertex. The glue is a family of reciprocal nonnegative measures $d\mathfrak m_{xy}(E)=d\mathfrak m_{yx}(E)$ on $E\in(0,\infty)$, with moment matrix $\mathcal M_{xy}=\int d\mathfrak m_{xy}$. We let $\mathcal M$ act on $\ell^2(\eta)$ by $(\mathcal M h)_x=\sum_y\mathcal M_{xy}\eta_yh_y$ and assume that its norm $\rho=\|\mathcal M\|$ is finite and positive.
+
+Pairing is tested on a positive reflected normal branch: an actual solution of the matched imaginary-axis normal equation. At each tested temperature the frequency rows of the normal kernel, including the zero-transfer term, are assumed to have a finite bound $R(\tau)$; no bound uniform in $\tau$ is needed. As in~\cite{optimum}, the normal kernel is allowed to exceed the pairing transfer by an odd-folded nonnegative excess, a bounded pairing kernel dominated entrywise by the nonnegative attractive envelope cannot raise the onset, and a positive semidefinite static pairing-only subtraction is harmless on the matched branch. If a symmetry reduction is used, the normal propagator and the envelope must preserve the sector. The temperature $\Tlin$ is the supremum of the temperatures at which the linearised pairing stability form has a negative direction on such a branch, or zero if there are none.
+
+For a spectral energy $E$ put
+\[
+t=\Bigl(\frac{E}{2\pi\tau}\Bigr)^2,\qquad k_j=\frac1{t+j^2},\qquad w_n=2n+1,
+\]
+and, for reflected frequencies $n,m\ge0$,
+\[
+p_{nm}=k_{|n-m|}-k_{n+m+1}\ge0,\qquad S_{nm}=k_{|n-m|}+k_{n+m+1}.
+\]
+
+\subsection{Weights and the two branch classes}
+
+The density of states enters the stability form only through the weights
+\[
+b_{n,x}=\int\frac{N_x(\xi)}{N_{\max,x}}\;\frac{\pi\tau s_{n,x}}{(\pi\tau s_{n,x})^2+(\xi-\ell_{n,x})^2}\,\frac{d\xi}{\pi}\in[0,1],\qquad n\ge0,
+\]
+where $s_{n,x}\ge w_n$ is the normal width at the $n$th reflected frequency, in units in which the free width is $w_n$, and $\ell_{n,x}$ is the real part of the normal shift, which vanishes on a centered branch.
+
+On a \emph{centered} branch, with even $N_x$ and $\ell=0$, the widths satisfy the width cone established in~\cite{predecessor,optimum}: $s_{n,x}/w_n$ is nonincreasing and $w_ns_{n,x}$ is nondecreasing in $n$, so that in particular $w_m^{-1}\le s_{m,x}/s_{0,x}\le w_m$. The weights $b_{m,x}$ are Poisson averages of $N_x/N_{\max,x}$ at heights $\pi\tau s_{m,x}$.
+
+The \emph{causal} class drops evenness and the cone. There the density of states is a Herglotz transform seen through a causal radial propagator: $F_x=g_x\circ Z_x$, where $g_x$ is the Herglotz transform of the normalised density of states (with a real subtraction if needed) and $Z_x$ maps the upper half plane to itself. Then $B_x=\operatorname{Im}F_x$ is harmonic with values in $[0,1]$, and $b_{n,x}=B_x(i\pi\tau w_n)$. Both $B_x$ and $1-B_x$ are nonnegative harmonic functions. (We do not claim that $1-F_x$ is itself a Herglotz function, and we do not need it.) Harnack's inequality for the half plane compares the values at $z_0=i\pi\tau$ and $z_m=i\pi\tau w_m$, whose heights stand in the ratio $w_m$, and gives for every $m\ge1$ the four inequalities
+\begin{equation}\label{eq:harnack}
+\begin{gathered}
+0\le b_m\le1,\qquad \frac{b_0}{w_m}\le b_m\le w_mb_0,\\
+w_mb_0-(w_m-1)\le b_m\le\frac{b_0+w_m-1}{w_m},
+\end{gathered}
+\end{equation}
+the second line coming from the same inequality applied to $1-B_x$. The degenerate cases in which $B_x$ or $1-B_x$ vanishes identically are handled by continuity. A centered branch satisfies~\eqref{eq:harnack} as well, since the same argument applies to the Poisson integrals of $N_x/N_{\max,x}$ and of $1-N_x/N_{\max,x}$ between heights whose ratio lies in $[w_m^{-1},w_m]$. The causal class therefore contains the centered class, and the centered class has the additional lower envelope described in Section~\ref{sec:weights}.
+
+\subsection{The theorem}
+
+\begin{theorem}\label{thm:main}
+In the setting above,
+\[
+\kB\Tlin<C\sqrt{\rho},
+\]
+where $C=\Ccent=\sqrt{41/30}/(2\pi)\approx0.1860593214$ if the branch is centered, and $C=\Ccaus=\sqrt{45/32}/(2\pi)\approx0.1887345454$ if the branch belongs to the causal class. Both constants are smaller than $\sqrt{377/250}/(2\pi)$, which is the constant of~\cite{optimum}, and larger than the scalar constant $\Cinf$.
+\end{theorem}
+
+The ordering $\Cinf<\Ccent<\Ccaus<C_{21}$ is a comparison of explicit numbers. Table~\ref{tab:constants} lists them with their excess over $\Cinf$.
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\hline
+ & exact form & decimal & above $\Cinf$ \\
+\hline
+$\Cinf$ & scalar constant of~\cite{finite} & $0.1827262478$ & \\
+$\Ccent$ & $\sqrt{41/30}/(2\pi)$ & $0.1860593214$ & $1.824\%$ \\
+$\Ccaus$ & $\sqrt{45/32}/(2\pi)$ & $0.1887345454$ & $3.288\%$ \\
+$C_{21}$ & $\sqrt{377/250}/(2\pi)$ & $0.1954433070$ & $6.960\%$ \\
+$C_1$ & $\sqrt{413/250}/(2\pi)$ & $0.2045620904$ & $11.95\%$ \\
+$U$ & $\sqrt{6466219/3576050}/(2\pi)$ & $0.2140146706$ & $17.12\%$ \\
+\hline
+\end{tabular}
+\caption{The scalar constant and the successive coupled-channel ceilings. The first two rows below $\Cinf$ are proved here; the others are from~\cite{predecessor,optimum}.}\label{tab:constants}
+\end{table}
+
+\begin{remark}
+For a single channel the sharp bound $\kB\Tlin<\Cinf\sqrt\rho$ with arbitrary bounded energy-dependent density of states is already known~\cite{finite}. For coupled channels with energy-independent density of states the bound $\kB\Tlin\le\Cinf\sqrt\rho$ is proved in the supplement to~\cite{predecessor}. Theorem~\ref{thm:main} concerns the remaining case in which the channels differ and the densities of states depend on energy.
+\end{remark}
+
+\section{Reduction to an edge inequality}\label{sec:reduction}
+
+Real and imaginary parts of a trial function decouple in the stability form, so real trials suffice. Fix a trial $v=(v_{n,x})$, write $g_{n,x}=\sqrt{w_nb_{n,x}}\,v_{n,x}$ and $\|g_x\|^2=\sum_nw_nb_{n,x}v_{n,x}^2$. After folding the frequency axis, the form reads
+\begin{equation}\label{eq:form}
+Q(v)=\sum_x\eta_x\|g_x\|^2+\frac1{2(2\pi\tau)^2}\sum_{x,y}\eta_x\eta_y\int I_{xy}(t)\,d\mathfrak m_{xy}(E),
+\end{equation}
+where, with $b_n=b_{n,x}$, $c_m=b_{m,y}$, $X_n=v_{n,x}$ and $Y_m=v_{m,y}$,
+\[
+I_{xy}(t)=\sum_{n,m\ge0}b_nc_m\bigl[p_{nm}(X_n^2+Y_m^2)-2S_{nm}X_nY_m\bigr].
+\]
+For $r>0$ put $B_r=\sum_{n\ge0}w_n\bigl(r^{-1}b_nX_n^2+r\,c_nY_n^2\bigr)=r^{-1}\|g_x\|^2+r\|g_y\|^2$.
+
+\begin{proposition}[edge inequality]\label{prop:edge}
+Let $\dstar=317/1000$ for centered branches and $\dstar=119/400$ for the causal class. For every $t>0$, every $r>0$, all weight sequences $(b_n)$ and $(c_m)$ admissible in the respective class, and all real $X,Y$,
+\begin{equation}\label{eq:edge}
+B_r+\tfrac12I_{xy}(t)\ \ge\ \dstar\,B_r .
+\end{equation}
+\end{proposition}
+
+The two weight sequences are independent admissible sequences, so the diagonal case $x=y$ is included.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} from Proposition~\ref{prop:edge}]
+Choose $R'>\rho$ and put $h=(I-\mathcal M/R')^{-1}\mathbf 1$, that is, $h=\sum_{j\ge0}(\mathcal M/R')^j\mathbf 1$. Since $\mathcal M$ has nonnegative entries, $h\ge\mathbf 1$, and $\mathcal Mh=R'(h-\mathbf 1)\le R'h$ entrywise. Apply~\eqref{eq:edge} with $r=r_{xy}=h_x/h_y$ for every pair $(x,y)$ and integrate against $d\mathfrak m_{xy}$. Then
+\[
+Q(v)\ \ge\ \sum_x\eta_x\|g_x\|^2-\frac{1-\dstar}{(2\pi\tau)^2}\sum_{x,y}\eta_x\eta_y\mathcal M_{xy}\Bigl(\frac{h_y}{h_x}\|g_x\|^2+\frac{h_x}{h_y}\|g_y\|^2\Bigr).
+\]
+By reciprocity the two terms in the bracket give the same sum, and $\sum_y\mathcal M_{xy}\eta_yh_y\le R'h_x$ bounds it by $R'\sum_x\eta_x\|g_x\|^2$. Hence
+\[
+Q(v)\ \ge\ \Bigl[1-\frac{2(1-\dstar)R'}{(2\pi\tau)^2}\Bigr]\sum_x\eta_x\|g_x\|^2 ,
+\]
+and since the left side does not depend on $R'$, we may let $R'\downarrow\rho$. Thus $Q$ is strictly positive whenever $(2\pi\tau)^2>2(1-\dstar)\rho$, that is, $\Tlin\le C_*\sqrt\rho/\kB$ with $C_*=\sqrt{2(1-\dstar)}/(2\pi)$. This gives $C_{\mathrm{cent},*}=\sqrt{683/500}/(2\pi)\approx0.1860139355$ and $C_{\mathrm{caus},*}=\sqrt{281/200}/(2\pi)\approx0.1886506447$.
+
+The constants of the theorem are slightly larger than $C_*$, and the difference is what makes the inequality strict without a temperature-uniform row bound. Take the smaller reserves $d_{\rm cent}=19/60<317/1000$ and $d_{\rm caus}=19/64<119/400$. Then $2(1-d_{\rm cent})=41/30$ and $2(1-d_{\rm caus})=45/32$, the numbers under the square roots in $\Ccent$ and $\Ccaus$, and
+\[
+1-\frac{1-317/1000}{1-19/60}=\frac1{2050},\qquad
+1-\frac{1-119/400}{1-19/64}=\frac1{1125}.
+\]
+At every $\tau$ with $(2\pi\tau)^2\ge2(1-d)\rho$, where $d$ stands for $d_{\rm cent}$ or $d_{\rm caus}$, the bracket in the previous display is at least $1-(1-\dstar)R'/((1-d)\rho)$, and letting $R'\downarrow\rho$ gives $Q(v)\ge\frac1{2050}\sum_x\eta_x\|g_x\|^2$ in the centered case and $Q(v)\ge\frac1{1125}\sum_x\eta_x\|g_x\|^2$ in the causal case. In the Hilbert-space norm of the pairing problem, $\sum_x\eta_x\|(s_xb_x)^{1/2}v_x\|^2$, one has $s_{n,x}\le w_n+R(\tau)\le(1+R(\tau))w_n$, so this norm is at most $(1+R(\tau))\sum_x\eta_x\|g_x\|^2$. The symmetrised stability operator is therefore bounded below by $[2050(1+R(\tau))]^{-1}$, respectively $[1125(1+R(\tau))]^{-1}$. A positive lower bound at every temperature $\tau\ge C\sqrt\rho/\kB$ means that no negative direction exists there. Since $R(\tau)$ is finite at each such $\tau$, this proves $\kB\Tlin<C\sqrt\rho$.
+\end{proof}
+
+All the work therefore lies in Proposition~\ref{prop:edge}.
+
+\section{Proof of the edge inequality}\label{sec:proof}
+
+\subsection{Coordinates and four sectors}
+
+Fix $t>0$ and $r>0$, and two independent admissible weight sequences $b_n$ and $c_m$. Put
+\[
+a_n=r^{-1/2}\sqrt{w_nb_n}\,X_n,\qquad d_m=r^{1/2}\sqrt{w_mc_m}\,Y_m,
+\]
+so that $B_r=\sum_{n\ge0}(a_n^2+d_n^2)$. (If a weight vanishes the corresponding terms drop out and the bare reserve $1\ge\dstar$ is untouched.) The part of $\tfrac12I_{xy}$ that couples frequency $n$ of channel $x$ with frequency $m$ of channel $y$ is
+\begin{equation}\label{eq:pairblock}
+\mathcal B_{nm}=\frac{r\,c_m\,p_{nm}}{2w_n}\,a_n^2+\frac{b_n\,p_{nm}}{2r\,w_m}\,d_m^2-S_{nm}\sqrt{\frac{b_nc_m}{w_nw_m}}\;a_nd_m .
+\end{equation}
+The unit terms $a_n^2$ and $d_m^2$ of $B_r$ are the mass we spend. Of each we keep back the fraction $\dstar$ demanded by~\eqref{eq:edge}, and the remaining $1-\dstar$ is shared among the pairs in which the coordinate takes part. We fix $M=20$ and distinguish four kinds of pairs: the head pair $(0,0)$; the head-tail pairs $(0,m)$ and $(n,0)$ with $m,n\ge1$ (Stage 0; those with an index above $M$ will turn out to have positive completions and are discarded); the pairs $(1,k)$ and $(k,1)$ with $2\le k\le M$ (Stage 1); and all remaining tail-tail pairs. For the head pair,
+\[
+p_{00}=\frac1{t(1+t)}=2\beta,\qquad S_{00}=\frac{1+2t}{t(1+t)}=2(\beta+u),\qquad \beta=\frac1{2t(1+t)},\quad u=\frac1{1+t}.
+\]
+
+\subsection{Reflected tails}
+
+The identity
+\[
+(a-b)(X^2+Y^2)-2(a+b)XY=(a-b)(X-Y)^2-4bXY
+\]
+with $a=k_{|n-m|}$ and $b=k_{n+m+1}$ writes the pair $(n,m)$ in~\eqref{eq:form} as a nonnegative difference square plus the reflected cross term $-2b_nc_mk_{n+m+1}X_nY_m$. For the remaining tail-tail pairs we discard the difference square and bound the cross term by the weighted arithmetic-geometric inequality,
+\[
+-2b_nc_mk_{n+m+1}X_nY_m\ \ge\ -\frac{a_n^2}{w_m(n+m+1)^2}-\frac{d_m^2}{w_n(n+m+1)^2},
+\]
+using $b_n,c_m\le1$ and $k_{n+m+1}\le(n+m+1)^{-2}$. Collecting the coefficient of $a_n^2$ over the remaining pairs gives, for $1\le n\le M$,
+\[
+q_n=\sum_{\substack{m=1\\(n,m)\ \text{not Stage 1}}}^{M}\frac1{(2m+1)(n+m+1)^2}+\frac1{43(n+M+1)},
+\]
+where the last term bounds the modes $m\ge M+1$, for which $2m+1\ge43$ and $\sum_{m\ge M+1}(n+m+1)^{-2}\le(n+M+1)^{-1}$. For $n>M$ no Stage-1 pair is removed, so the full row sum applies, and it is at most that of the first row. Evaluating sixteen terms exactly and bounding the rest gives
+\[
+q_{\mathrm{cap}}=\frac{33}{500}\ >\ \sum_{m=1}^{16}\frac1{(2m+1)(m+2)^2}+\frac1{4\cdot16^2}.
+\]
+The same bounds hold for the coefficient of $d_n^2$. After the reserve and these costs, tail mode $n\le M$ has the share $\mathrm{rem}_n=1-\dstar-q_n$ of its bare mass left. We write $\mathrm{rem}_1$ entirely to Stage 0, and split $\mathrm{rem}_k$ for $2\le k\le M$ in the proportion $7/10$ to Stage 0 and $3/10$ to Stage 1:
+\[
+\alpha_{0,1}=\mathrm{rem}_1,\quad\beta_{1,1}=0;\qquad \alpha_{0,k}=\tfrac7{10}\mathrm{rem}_k,\quad\beta_{1,k}=\tfrac3{10}\mathrm{rem}_k\quad(2\le k\le M),
+\]
+and $\alpha_{\rm ext}=1-\dstar-q_{\rm cap}$ for $n>M$. In the range where Stage 1 is used one has $\beta_{1,k}>0.19$.
+
+\subsection{The cascade}
+
+Consider a pair $(n,m)$ with $n\in\{0,1\}$ and $m\ge1$, $(n,m)\ne(1,1)$, and write~\eqref{eq:pairblock} as a quadratic form in the tail coordinate $d_m$. If $d_m$ carries a bare share $\tilde\alpha b_n$ in addition to its own interaction term, completing the square in $d_m$ leaves in $a_n^2$ the coefficient $c_m\,D_{nm}$, where
+\begin{equation}\label{eq:completion}
+D_{nm}(r,t;\tilde\alpha)=\frac{r\,p_{nm}}{2w_n}-\frac{S_{nm}^2}{4w_nw_m\bigl(\tilde\alpha+p_{nm}/(2rw_m)\bigr)}
+=\frac{2p_{nm}\bigl(rw_m\tilde\alpha-2/(w_nw_m)\bigr)}{w_n\bigl(4w_m\tilde\alpha+2p_{nm}/r\bigr)} .
+\end{equation}
+The second equality uses the exact identities
+\[
+w_m(S_{0m}^2-p_{0m}^2)=4p_{0m},\qquad 3w_k(S_{1k}^2-p_{1k}^2)=4p_{1k},
+\]
+which follow from $p_{nm}=k_{|n-m|}-k_{n+m+1}$ and $(m+1)^2-m^2=w_m$, $(k+2)^2-(k-1)^2=3w_k$; here $p_{0m}=w_m/((t+m^2)(t+(m+1)^2))$ and $p_{1k}=3w_k/((t+(k-1)^2)(t+(k+2)^2))$.
+
+\emph{Stage 1.} For $n=1$ and $2\le k\le M$ the share is $\tilde\alpha=\beta_{1,k}$, and $b_1$ drops out in the worst case $b_1=1$, because $b_1\mapsto b_1/(\beta+Cb_1)$ is increasing. On the region $r\in[1/3,3]$ the completion $D^{X}_{1,k}(r,t)=D_{1k}(r,t;\beta_{1,k})$ is positive, since $\beta_{1,k}>0.19>2/25\ge2/w_k^2$ and $r\ge1/3$. It is increasing in $r$ and in $p_{1k}$ and therefore decreasing in $t$. The first tail mode of channel $x$, with coordinate $a_1$, is boosted by
+\[
+\alpha_1^{\rm eff,(X)}=\alpha_{0,1}+\sum_{k=2}^{M}c_k\,D^{X}_{1,k}(r,t),
+\]
+and the mirror statement holds for the first tail mode of channel $y$, with coordinate $d_1$, the weights $b_k$ and $D^Y_{1,k}(r,t)=D^X_{1,k}(r^{-1},t)$. This is the cascade: the first tail mode is stabilised by the higher tail modes before it meets the head.
+
+The reason this matters is visible in the earlier argument. Without Stage 1 the first tail mode has only $\alpha_{0,1}$, and its completion against the head is negative unless $r\alpha_{0,1}>2/w_1^2=2/9$. Once $\dstar$ approaches $0.30$ the static share satisfies $\alpha_{0,1}\le0.634$, so at $r=1/3$ one has $r\alpha_{0,1}\le0.2113<2/9$ and the single-stage completion is negative, which is what limited the reserve to $247/1000$. In the actual form the first mode is itself stabilised by the squares $\tfrac12b_1c_kp_{1k}(X_1-Y_k)^2$ with $k\ge2$, and the cascade retains them.
+
+\emph{Stage 0.} The bare share of the tail coordinate $d_m$ is $\alpha_m$, where $\alpha_1=\alpha_1^{\rm eff,(Y)}$ is the boosted value for $m=1$ and $\alpha_m=\alpha_{0,m}$ for $2\le m\le M$. In the normalisation of~\eqref{eq:completion} with $n=0$ this is the share $\tilde\alpha=\alpha_m/b_0$, so completing the square in $d_m$ against the head coordinate $a_0$ leaves $c_m\hat D^{X}_{0m}(r,t;b_0)$ in $a_0^2$, with $\hat D^{X}_{0m}=D_{0m}(r,t;\alpha_m/b_0)$. The division by $b_0$ is exactly the dependence on the weight of the head. When $rw_m\tilde\alpha\ge2/w_m$ the completion is nonnegative, increasing in $r$ and in $p_{0m}$, and it is bounded below at $r_{\rm lo}$ and at the largest $t$ of a box. When it is negative we drop the term $2p_{0m}/r$ from the denominator, take $p_{0m}$ at the smallest $t$ of the box, where it is largest, and multiply by the upper Harnack ratio $c_m/c_0\le w_m$, because in the head form the completion appears with the weight $c_m/c_0$. The upper law cannot be omitted. A vector that obeys only the lower Harnack law, with $c_0=1/10$, $c_1=1$, $r=1/3$, $t=1/10$ and $\tilde\alpha_1=3/5$, has $(c_1/c_0)\hat D_{0,1}=-500/6309$, which lies strictly below the outward bound $-50/1353$ that the upper law provides. For $m>M$ one has $w_m\ge43$ and $\tilde\alpha_m\ge\alpha_{\rm ext}>3/5$, so $rw_m\tilde\alpha_m\ge2/w_m$ for every $r\ge1/3$; the completion is positive and we drop it.
+
+\subsection{The head}
+
+The two head coordinates remain, with the budget left after all completions. Writing $\tilde a=\sqrt{c_0}\,a_0$ and $\tilde d=\sqrt{b_0}\,d_0$, the head part is the form with matrix
+\[
+M_{\rm head}=\begin{pmatrix}\Phi_X+\beta r&-(\beta+u)\\-(\beta+u)&\Phi_Y+\beta/r\end{pmatrix},
+\]
+where
+\[
+\Phi_X=\frac{1-\dstar}{c_0}+\sum_{m\ge1}\frac{c_m}{c_0}\hat D^{X}_{0m}(r,t;b_0),\qquad
+\Phi_Y=\frac{1-\dstar}{b_0}+\sum_{m\ge1}\frac{b_m}{b_0}\hat D^{Y}_{0m}(r,t;c_0),
+\]
+and $\hat D$ denotes the lower bound for the Stage-0 completion just described. If $b_0=0$ or $c_0=0$ the cross term vanishes and the claim is immediate.
+
+\begin{lemma}[head criterion]\label{lem:head}
+Let $\Phi_X,\Phi_Y>0$ and $A=2t(1+t)$. Then
+\[
+A^2r\det M_{\rm head}=(A\Phi_X+r)(Ar\Phi_Y+1)-r(1+2t)^2=A^2r\Phi_X\Phi_Y+A(\Phi_X+r^2\Phi_Y)-4rt(1+t),
+\]
+and this equals
+\[
+2rt(1+t)\Bigl[2t(1+t)\Phi_X\Phi_Y+r^{-1}\Phi_X+r\Phi_Y-2\Bigr].
+\]
+Consequently $M_{\rm head}\succeq0$ if and only if
+\begin{equation}\label{eq:det_head}
+2t(1+t)\,\Phi_X\Phi_Y+\frac{\Phi_X}{r}+r\Phi_Y\ \ge\ 2 .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+With $\beta=1/A$ one has $A(\Phi_X+\beta r)=A\Phi_X+r$ and $Ar(\Phi_Y+\beta/r)=Ar\Phi_Y+1$, while $A^2r(\beta+u)^2=r(1+2t)^2$ because $A/(1+t)=2t$. This gives the first equality. Expanding and using $(1+2t)^2=1+4t(1+t)$ gives the second, in which $-4rt(1+t)=-2rA$ combines with the other terms to give the factored form. Both diagonal entries are positive, so $M_{\rm head}\succeq0$ if and only if its determinant is nonnegative. (The three identities, with the head determinant in the polynomial form above, are among the statements checked in Lean; see Section~\ref{sec:cert}.)
+\end{proof}
+
+As a check, at $(r,t,\Phi_X,\Phi_Y)=(2,\tfrac12,1,1)$ one has $A=3/2$, both expressions equal $6$, the bracket is $2$, the prefactor is $3$, and $\det M_{\rm head}=4/3$.
+
+On a box $[r_{\rm lo},r_{\rm hi}]\times[t_{\rm lo},t_{\rm hi}]$ and for head weights in a sub-box, suppose $\Phi_X\ge\Phi_X^{\rm lo}>0$ and $\Phi_Y\ge\Phi_Y^{\rm lo}>0$. The function $r\mapsto\Phi_X/r+r\Phi_Y$ is convex, so it lies above its tangent line at the midpoint $r_0$ of the box,
+\[
+\frac{\Phi_X}{r}+r\Phi_Y\ \ge\ \frac{2\Phi_X}{r_0}+r\Bigl(\Phi_Y-\frac{\Phi_X}{r_0^2}\Bigr).
+\]
+The right side is affine in $r$, so its minimum over the box is at an endpoint, determined by the sign of the slope, and it is increasing in both $\Phi_X$ and $\Phi_Y$ because $r<2r_0$. We may therefore insert the lower bounds. With $g_{\rm lo}$ the value so obtained at the worse endpoint, a sufficient condition for~\eqref{eq:det_head} on the whole box is
+\begin{equation}\label{eq:rect}
+2t_{\rm lo}(1+t_{\rm lo})\Phi_X^{\rm lo}\Phi_Y^{\rm lo}+g_{\rm lo}\ \ge\ 2 .
+\end{equation}
+This is a finite rational inequality for each box and head sub-box. The head weights enter only through $\Phi_X$ and $\Phi_Y$, and Lemma~\ref{lem:head} lets them remain unknown within their sub-box instead of being replaced by their worst-case values $0$ and $1$.
+
+\subsection{Weight laws and head sub-boxes}\label{sec:weights}
+
+The functions $\Phi_X$ and $\Phi_Y$ involve the head weights and the ratios $b_m/b_0$ and $c_m/c_0$, so the proof needs lower bounds for these ratios in terms of the head weight alone. For the causal class the Harnack lines in~\eqref{eq:harnack} give
+\[
+b_m\ \ge\ \max\bigl\{b_0/w_m,\ w_mb_0-2m\bigr\},
+\]
+while $b_m\le w_mb_0$ is used when a completion is negative. Centered branches admit a sharper lower envelope, which comes from the Poisson form of the weights.
+
+\begin{proposition}[Poisson envelope]\label{prop:poisson}
+Let $w>1$, let $N:[0,\infty)\to[0,1]$ be measurable, and put
+\[
+b_0=\frac2\pi\int_0^\infty\frac{N(\xi)}{1+\xi^2}\,d\xi,\qquad
+b(\sigma)=\frac2\pi\int_0^\infty N(\xi)\,\frac{\sigma}{\sigma^2+\xi^2}\,d\xi .
+\]
+Then $b(\sigma)\ge\varphi_w(b_0)$ for every $\sigma\in[w^{-1},w]$, where
+\[
+\varphi_w(b)=\frac2\pi\arctan\Bigl(\frac1w\tan\frac{\pi b}2\Bigr).
+\]
+\end{proposition}
+
+In the application one rescales the energy variable by $\pi\tau s_{0,x}$. Then $N$ is the normalised density of states, $b_0$ and $b_m=b(\sigma)$ are the weights of frequencies $0$ and $m$, and $\sigma=s_{m,x}/s_{0,x}$ lies in $[w_m^{-1},w_m]$ by the width cone.
+
+\begin{proof}
+If $b_0\in\{0,1\}$ then $N$ vanishes or equals $1$ almost everywhere and the claim is immediate. Otherwise put $W=\tan(\pi b_0/2)\in(0,\infty)$. We minimise $\int Nk_\sigma$, where $k_\sigma(\xi)=\sigma/(\sigma^2+\xi^2)$, over all measurable $N$ with values in $[0,1]$ and a prescribed value of $\int Nk_1$. By the bathtub principle, a form of the Neyman-Pearson lemma, a minimiser is the indicator of a set on which the ratio $k_\sigma/k_1=\sigma(1+\xi^2)/(\sigma^2+\xi^2)$ is smallest. The derivative of $(1+x)/(\sigma^2+x)$ in $x=\xi^2$ has the sign of $\sigma^2-1$. For $\sigma\in(1,w]$ the ratio increases with $\xi$, so the minimiser is the central box $\mathbf 1_{[0,W]}$, which has the prescribed $b_0$, and
+\[
+b(\sigma)\ \ge\ \frac2\pi\arctan\frac W\sigma\ \ge\ \frac2\pi\arctan\frac Ww=\varphi_w(b_0).
+\]
+For $\sigma\in[w^{-1},1)$ the ratio decreases, the minimiser is the outer ray $\mathbf 1_{[1/W,\infty)}$, which also has the prescribed $b_0$, and $b(\sigma)\ge\frac2\pi\arctan(\sigma W)\ge\frac2\pi\arctan(W/w)$. For $\sigma=1$ one has $b(\sigma)=b_0\ge\varphi_w(b_0)$.
+\end{proof}
+
+For $w>1$ the function $\varphi_w$ is increasing and convex on $[0,1]$. With $\xi=\tan(\pi b/2)$ one finds
+\[
+\varphi_w'(b)=\frac{w(1+\xi^2)}{w^2+\xi^2},\qquad
+\varphi_w''(b)=\frac{\pi w(w^2-1)\,\xi(1+\xi^2)}{(w^2+\xi^2)^2}>0,
+\]
+so every tangent line lies below $\varphi_w$ and gives an admissible lower bound. We use the tangents at the points $b=\frac2\pi\arctan\xi_0$ with $\xi_0\in\{5,8,12\}$,
+\[
+\varphi_w(b)\ \ge\ \lambda b+\frac2\pi\arctan\frac{\xi_0}{w}-\lambda\,\frac2\pi\arctan\xi_0,\qquad \lambda=\frac{w(1+\xi_0^2)}{w^2+\xi_0^2}.
+\]
+The intercept is not positive, because $\varphi_w(0)=0$ and $\varphi_w$ is convex. Together with the two lines $b_m\ge b_0/w_m$ and $b_m\ge w_mb_0-2m$, which hold on both classes, the three tangents make the centered envelope a maximum of five affine functions of $b_0$. The causal envelope is the maximum of the first two. The intercepts are irrational, and the rational numbers used are obtained from certified alternating-series enclosures of $\pi$ and of the arctangent in integer arithmetic.
+
+To make the head weights explicit we cut $[0,1]$ for each of $b_0$ and $c_0$ at
+\[
+0,\ \tfrac23,\ \tfrac45,\ \tfrac{17}{20},\ \tfrac{22}{25},\ \tfrac9{10},\ \tfrac{23}{25},\ \tfrac{47}{50},\ \tfrac{24}{25},\ 1,
+\]
+which gives $9\times9=81$ head sub-boxes. Take $\Phi_X$ on a sub-box. On the sub-interval of $b_0$, say $b_0\le\beta_{\rm hi}$, the share $\alpha_m/b_0$ is at least $\alpha_m/\beta_{\rm hi}$, so each Stage-0 completion $\hat D^X_{0m}$ in $\Phi_X$ is bounded below by a number $C_m$ that depends only on the sub-interval. What remains is the dependence on $c_0$. Write the lower envelope as $c_m\ge\max_\ell(\lambda_\ell c_0+\nu_\ell)$ and put $u_0=1/c_0$. Whenever all the relevant Stage-0 and Stage-1 completions are nonnegative, the reserve sum $(1-\dstar)u_0+\sum_mC_m\max_\ell(\lambda_\ell+\nu_\ell u_0)$ is a maximum of affine functions of $u_0$, hence convex and piecewise linear, and its minimum over the sub-interval of $c_0$ is attained at an endpoint or at a breakpoint. On the first sub-interval $u_0$ is unbounded above, but the line $c_m\ge c_0/w_m$ has no intercept, so the slope for large $u_0$ is $1-\dstar>0$ and the minimum is still attained at a finite point. The same applies to $\Phi_Y$ with the roles of $b_0$ and $c_0$ exchanged. A negative completion is bounded instead by the outward estimate with the upper Harnack ratio, as described above.
+
+\subsection{The exterior regions}
+
+The compact domain $(r,t)\in[1/3,3]\times[0,1/2]$ is where the cascade and the head sub-boxes are needed. Outside it a cruder argument suffices, and it uses no Stage~1. Every tail mode $m\ge1$ keeps the share $\alpha_{\rm ext}=1-\dstar-q_{\rm cap}$ that the full Hankel bound leaves, which is $617/1000$ for $\dstar=317/1000$ and $1273/2000$ for $\dstar=119/400$. We use $617/1000$ for both classes. Write $D_{0,m}(r',t)$ for the completion~\eqref{eq:completion} with $n=0$ and $\tilde\alpha=\alpha_{\rm ext}$, and let $\Phi_*$ be the smaller of the two numbers
+\[
+1-\dstar-\sum_{m\ge1}\max\{-D_{0,m}(r',t),0\},\qquad r'\in\{r,r^{-1}\}.
+\]
+Whatever the head weights in $(0,1]$, the share in $\Phi_X$ and $\Phi_Y$ is at least $\alpha_{\rm ext}$, and the completion increases with the share. A nonnegative completion may be dropped, and a negative one is bounded below by $D_{0,m}/c_0$ in $\Phi_X$, because $0\le c_m\le1$, and by $D_{0,m}/b_0$ in $\Phi_Y$. Since $1/c_0\ge1$ and $1/b_0\ge1$, this gives $\Phi_X\ge\Phi_*$ and $\Phi_Y\ge\Phi_*$ as soon as $\Phi_*\ge0$. If then $\Phi_*\ge2/(r+r^{-1})$, the left side of~\eqref{eq:det_head} is at least $(r+r^{-1})\Phi_*\ge2$, and Lemma~\ref{lem:head} applies. In the last region below a different threshold is used.
+
+\emph{Far imbalance, $r\le1/4$.} The case $r\ge4$ follows by the channel swap. Here $r+r^{-1}\ge17/4$, so it is enough that $\Phi_*\ge8/17$, that is, that $\dstar$ does not exceed $9/17$ minus the total negative part. For every $m\ge1$ and $t\ge0$, dropping the nonnegative term $rw_m\tilde\alpha$ from the numerator and the term $2p_{0m}/r$ from the denominator in~\eqref{eq:completion} gives
+\[
+D_{0,m}\ \ge\ -\frac{p_{0m}(t)}{w_m^2\alpha_{\rm ext}}\ \ge\ -\frac{p_{0m}(0)}{w_m^2\alpha_{\rm ext}}=-\frac1{\alpha_{\rm ext}(2m+1)m^2(m+1)^2}.
+\]
+Since $(2m+1)m^2(m+1)^2>2m^5$, the terms with $m\ge21$ sum to less than $1/(8\cdot20^4)$, and
+\[
+\begin{aligned}
+\sum_{m\ge1}\frac1{(2m+1)m^2(m+1)^2}\ &\le\ \sum_{m=1}^{20}\frac1{(2m+1)m^2(m+1)^2}+\frac1{8\cdot20^4}\\
+&=\frac{221683723759377431023}{2453474125083421440000}\approx0.0903550<\frac7{75}.
+\end{aligned}
+\]
+Hence $9/17-(7/75)/(617/1000)=11899/31467\approx0.378142$ remains, which exceeds $317/1000$ and a fortiori $119/400$.
+
+\emph{Intermediate imbalance, $1/4\le r\le1/3$.} The case $[3,4]$ again follows by the swap. Now $r+r^{-1}\ge10/3$, so it is enough that $\Phi_*\ge3/5$. For $m\ge2$ one has $r\alpha_{\rm ext}/2\ge617/8000>1/25\ge w_m^{-2}$, so these completions are positive. Only $m=1$ is negative. Using $p_{0,1}\le3/4$ and dropping the positive denominator term, one finds $D_{0,1}\ge\tfrac34(\alpha_{\rm ext}/8-1/9)/\alpha_{\rm ext}$, and the total $2/5+\tfrac34(\alpha_{\rm ext}/8-1/9)/\alpha_{\rm ext}=106229/296160\approx0.358688$ is again above both reserves.
+
+\emph{Large energy, $t\ge1/2$ on $[1/3,3]$.} Here $r$ and $r^{-1}$ both lie in $[1/3,3]$. Write the head form as
+\[
+M_{\rm head}\ \sim\ \beta\Bigl(\sqrt r\,\tilde a-\frac{\tilde d}{\sqrt r}\Bigr)^2+\Phi_X\tilde a^2+\Phi_Y\tilde d^2-2u\,\tilde a\tilde d .
+\]
+Dropping the first, nonnegative square leaves a form that is nonnegative if and only if $\Phi_X\Phi_Y\ge u^2$, where $u=1/(1+t)\le2/3$, so $\Phi_*\ge2/3$ suffices. The completions with $m\ge2$ are positive. For $m=1$ one has $p_{0,1}=3/((t+1)(t+4))\le4/9$ and $r'\alpha_{\rm ext}/2-1/9\ge\alpha_{\rm ext}/6-1/9$, which is negative, so $D_{0,1}\ge\tfrac49(\alpha_{\rm ext}/6-1/9)/\alpha_{\rm ext}$. The total $1/3+\tfrac49(\alpha_{\rm ext}/6-1/9)/\alpha_{\rm ext}=16361/49977\approx0.327371$ is above both reserves.
+
+All three statements are rational arithmetic, and the arithmetic is checked exactly (Section~\ref{sec:cert}).
+
+\section{Certificates and their limits}\label{sec:cert}
+
+It remains to show that the sufficient condition~\eqref{eq:rect} holds on the compact domain, for every head sub-box and both branch classes, with the certified reserves $\dstar=317/1000$ and $119/400$. This is a finite computation in exact rational arithmetic, carried out twice by independent programs.
+
+The first program uses the symmetry $r\leftrightarrow r^{-1}$ to reduce to $[1,3]\times[0,1/2]$, an area of $1$, and subdivides it by bisection. On every rectangle all completions are evaluated outward, in scaled integer arithmetic with scale $10^{12}$ and exact floor and ceiling rounding from rational numbers. The bisection terminates at depth $17$ with $99$ leaves for the causal class and $107$ for the centered class.
+
+The second program was written separately, does not import the first, and uses a different rationalisation and an unreduced head square. It does not use the symmetry. It covers the full domain $[1/3,3]\times[0,1/2]$, of area $4/3$, by four-way subdivision, and reaches depth $9$ with $245$ leaves for the causal class and $287$ for the centered class. It also checks $72$ exact $6\times6$ trial forms, with frequencies $0,1,2$ on each side, retaining $21$ opposing normal-weight modes ($0\le m\le20$) in the diagonal entries, by exact Schur elimination, together with a guard that rejects an indefinite $6\times6$ block. These forms are a supplementary sample and do not replace the infinite-frequency estimate above.
+
+Where the margin is smallest, at the balanced small-$t$ corner $r\approx1$, $t\approx0$, the determinant slack $2t_{\rm lo}(1+t_{\rm lo})\Phi_X^{\rm lo}\Phi_Y^{\rm lo}+g_{\rm lo}-2$ is still positive, as Table~\ref{tab:slack} shows. With the sub-intervals counted from zero, the tightest leaf occurs at the head sub-box $I_6\times I_5=[23/25,47/50]\times[9/10,23/25]$ for $\dstar=317/1000$, at $I_7\times I_5=[47/50,24/25]\times[9/10,23/25]$ for $d=19/60$, and at $I_3\times I_3=[17/20,22/25]\times[17/20,22/25]$ for both causal reserves.
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\hline
+class and reserve & $r$ interval & $t$ interval & head sub-box & certified slack \\
+\hline
+centered, $\dstar=317/1000$ & $[135/128,\,271/256]$ & $[0,\,1/256]$ & $I_6\times I_5$ & $0.000078371512$ \\
+centered, $d=19/60$ & $[35/32,\,141/128]$ & $[0,\,1/128]$ & $I_7\times I_5$ & $0.000000730797$ \\
+causal, $\dstar=119/400$ & $[67/64,\,269/256]$ & $[0,\,1/256]$ & $I_3\times I_3$ & $0.000012368679$ \\
+causal, $d=19/64$ & $[131/128,\,33/32]$ & $[0,\,1/256]$ & $I_3\times I_3$ & $0.000003769886$ \\
+\hline
+\end{tabular}
+\caption{Tightest certified leaf of the primary covering of $[1,3]\times[0,1/2]$ for each class and reserve.}\label{tab:slack}
+\end{table}
+
+Finite Lean~4 lemmas (version 4.35.0) check the algebraic identities on which the arithmetic relies: the head square and the head determinant in the form of Lemma~\ref{lem:head} (\texttt{head\us square}, \texttt{decoupled\us head\us criterion}), the reflected-tail decomposition (\texttt{reflected\us tail\us decomposition}), the width difference of the cascade (\texttt{cascade01\us width\us diff}), the two transfer identities and the two completion numerators (\texttt{stage0\us transfer\us identity}, \texttt{stage1\us transfer\us identity}, \texttt{stage0\us completion\us numerator}, \texttt{stage1\us completion\us numerator}), and the exact budgets and ceilings (\texttt{exact\us budgets\us and\us ceilings}), which include the exterior-region arithmetic and the chain $41/30<45/32<377/250<413/250$. The rational inequalities are decided in Lean by compiled evaluation (\texttt{native\us decide}). Lean does not formalise the infinite operator, the branch-and-bound loop, or the analytic facts about Harnack inequalities and Poisson convexity. Those are proved on paper above, and the reader should treat the computation as certifying the finite part of the argument only.
+
+\section{A soft-limit corollary}\label{sec:soft}
+
+Theorem~\ref{thm:main} is an upper bound. In a limit in which the glue becomes soft, a matching statement for $\Cinf$ can be recorded for genuinely different channels. Behaviour of this kind was described by Dolgov and Golubov~\cite{dolgov} for multiband superconductors in the superstrong-coupling regime, and the supplement to~\cite{predecessor} (DOI~\DOI{10.5281/zenodo.24372929}) contains the two ingredients used here: an angular-locking argument, which ties together the channels of a connected graph once the glue is soft, and the exact limiting coefficient for scaled centered boxes. We state the combination as an explicit corollary of those results, with its hypotheses, which are strong.
+
+Let $d\ge2$ channels carry counting measure, and let $d\mathfrak m_{xy}(e)$ be fixed reciprocal entrywise-nonnegative moment measures on positive energies, with $J=\int d\mathfrak m$ and $L=\int e^{-2}d\mathfrak m$ finite and the graph of the positive off-diagonal entries of $J$ connected. The same retarded interaction enters the normal and the pairing equations, with no additional instantaneous term, and the branch is centered, with even density of states and zero real shift. Channel $x$ has the box density of states $\mathbf 1_{|\xi|<W_x^\varepsilon}$ with $W_x^\varepsilon=\omega_x\varepsilon^{-p}$, where $\omega_x>0$ and $p>1$ are fixed. Replace every boson energy $e$ by $\sqrt\varepsilon\,e$ without changing its moment weight, so that $J$ is unchanged. Write $\rho=\|J\|$.
+
+\begin{corollary}\label{cor:soft}
+Under these hypotheses
+\[
+\lim_{\varepsilon\downarrow0}\frac{\kB T_{\rm lin}^{\varepsilon}}{\sqrt\rho}=\Cinf\sqrt{\frac{\mathbf 1^{\!\top}J\mathbf 1}{d\,\rho}} .
+\]
+The limit equals $\Cinf$ if and only if $J\mathbf 1=\rho\mathbf 1$, and is strictly smaller otherwise.
+\end{corollary}
+
+In outline, the zero-transfer part of the normal kernel is $L/\varepsilon$ and diverges as the glue softens, so the angular Laplacian it generates penalises every nonconstant direction in the channel variable at diverging cost. Only the constant direction survives, and the problem reduces to the scalar soft form with the average moment $\mathbf 1^{\!\top}J\mathbf 1/d$ in place of $\rho$. The written proof in the replay bundle treats counting measure on the channels, and fixed positive channel weights replace every sum by the corresponding weighted sum.
+
+Two examples show both outcomes. Take two Lorentzian atoms at base energies $1$ and $2$ with
+\[
+M_1=\begin{pmatrix}1/2&0\\0&0\end{pmatrix},\qquad M_2=\begin{pmatrix}1/4&1/4\\1/4&3/4\end{pmatrix}.
+\]
+Then $J=M_1+M_2$ has norm one and equal row sums, while $L=M_1+M_2/4$ has row sums $5/8$ and $1/4$. With boxes $W=(1,2)/\varepsilon^2$ the leading normal widths satisfy $\varepsilon s_{n,1}\to5/8$ and $\varepsilon s_{n,2}\to1/4$ at every fixed frequency, so spectra, densities of states and normal widths are all different, and yet $\kB T_{\rm lin}\to\Cinf$. A single soft atom with $J=L=\begin{pmatrix}2&1\\1&1\end{pmatrix}$ has moment norm $(3+\sqrt5)/2$ and mean row sum $5/2$, so the limit is $\Cinf\sqrt{5/(3+\sqrt5)}\approx0.977\,\Cinf$, below $\Cinf$.
+
+What this does not show should be stated plainly. The corollary is for the hypotheses above: connected moment graphs, matched normal and pairing kernels, centered even boxes, a common softening, and box widths $\omega_x\varepsilon^{-p}$ with $p>1$, which grow faster than the normal widths. A matching limit asserts neither equality nor excess at any finite $\varepsilon$, and it is not a bandwidth bound uniform over the changing sequence. It does not apply to arbitrary centered bandwidths, to disconnected or degenerating graphs, or to finite-energy optima. It is consistent with Theorem~\ref{thm:main}, since each member of the sequence lies in the centered class and $\Cinf<\Ccent$.
+
+\section{How far the edge-reserve argument can go}\label{sec:barrier}
+
+The proof of Theorem~\ref{thm:main} has a simple shape. Everything is reduced to the single-edge inequality~\eqref{eq:edge}, whose reserve $\dstar$ does not depend on $t$, on $r$ or on the weights, and the edges are then added up as in Section~\ref{sec:reduction}. One may ask how much a cleverer proof of the same shape could still gain. The answer is that it could gain very little, and that it could not reach $\Cinf$. This section proves that statement with a finite certificate of the kind used above. It concerns a method and the weight classes it is applied to, and it says nothing about the supremum $S$ of Section~\ref{sec:open}.
+
+\subsection{The route constant}
+
+Write $\mathcal W_{\rm cent}$ for the set of weight sequences of Section~\ref{sec:setting} on centered branches, that is, the Poisson averages of even densities with values in $[0,1]$ at widths in the cone, and $\mathcal W_{\rm caus}\supseteq\mathcal W_{\rm cent}$ for the larger set on causal branches. Let $\mathcal H$ be the set of all sequences with values in $[0,1]$ that satisfy~\eqref{eq:harnack}, so that $\mathcal W_{\rm caus}\subseteq\mathcal H$. The proof of Proposition~\ref{prop:edge} for the causal class uses no property of the weights beyond membership of $\mathcal H$. For any of these sets $\mathcal W$ we say that~\eqref{eq:edge} holds \emph{on $\mathcal W$ with reserve $d$} if it holds with $\dstar$ replaced by $d$ for every $t>0$, every $r>0$, all $b,c\in\mathcal W$ and all finitely supported real $X,Y$. An \emph{edge-reserve proof} on $\mathcal W$ fixes such a reserve $d$ and sums over edges as in Section~\ref{sec:reduction}, which gives the constant $\sqrt{2(1-d)}/(2\pi)$. Put
+\[
+\Lambda(\mathcal W)=\sup\frac{-\tfrac12I_{xy}(t)}{B_r(X,Y)},
+\]
+where the supremum is taken over the same parameters with $B_r(X,Y)>0$.
+
+\begin{lemma}[route constant]\label{lem:route}
+Inequality~\eqref{eq:edge} holds on $\mathcal W$ with reserve $d$ if and only if $d\le1-\Lambda(\mathcal W)$. Consequently no edge-reserve proof on $\mathcal W$ gives a constant below
+\[
+\Croute(\mathcal W)=\frac{\sqrt{2\Lambda(\mathcal W)}}{2\pi}.
+\]
+\end{lemma}
+
+\begin{proof}
+If $B_r>0$, inequality~\eqref{eq:edge} with reserve $d$ says $-\frac12I_{xy}(t)\le(1-d)B_r$, and the first claim follows on taking the supremum. If $B_r=0$ then $b_nX_n^2=c_nY_n^2=0$ for all $n$, hence $b_nX_n=c_nY_n=0$, every term of $I_{xy}$ vanishes, and~\eqref{eq:edge} holds for every $d$. Finally $d\le1-\Lambda$ gives $\sqrt{2(1-d)}\ge\sqrt{2\Lambda}$.
+\end{proof}
+
+The constant $\Croute$ is a supremum over all edges at once, and the next lemma turns it into something one can compute. For a sequence $b$ with all $b_n>0$ and for $t>0$, let $\mathcal A_b(t)$ be the real symmetric matrix with entries
+\[
+(\mathcal A_b)_{nm}=\frac{\sqrt{b_nb_m}\,S_{nm}}{\sqrt{w_nw_m}}\ \ (n\ne m),\qquad
+(\mathcal A_b)_{nn}=\frac1{w_n}\Bigl(2b_nk_{2n+1}-\sum_{m\ne n}b_mp_{nm}\Bigr),
+\]
+where the sum converges because $p_{nm}=O(m^{-3})$.
+
+\begin{lemma}[symmetric reduction]\label{lem:sym}
+If $b\in\mathcal W$ has all $b_n>0$, then for every $t>0$ and every finitely supported $v\ne0$,
+\[
+2\Lambda(\mathcal W)\ \ge\ R_b(t;v):=\frac{v^{\top}\mathcal A_b(t)\,v}{\|v\|^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Take $c=b$, $r=1$, $Y=X$ and $X_n=v_n/\sqrt{w_nb_n}$. Then $b_nX_n^2=v_n^2/w_n$ and $B_1=2\sum_nw_nb_nX_n^2=2\|v\|^2$. In $I_{xx}$ the terms with $n=m$ equal $-4b_n^2k_{2n+1}X_n^2$, because $p_{nn}-S_{nn}=-2k_{2n+1}$, so that the zero-transfer term $k_0=1/t$ cancels. By the symmetry of $p_{nm}$ the terms with $n\ne m$ add up to $2\sum_nb_nX_n^2\sum_{m\ne n}b_mp_{nm}-2\sum_{n\ne m}b_nb_mS_{nm}X_nX_m$. Insert $b_nb_mX_nX_m=\sqrt{b_nb_m}\,v_nv_m/\sqrt{w_nw_m}$. This gives $-\frac12I_{xx}=v^{\top}\mathcal A_bv$, hence $-\frac12I_{xx}/B_1=R_b/2$.
+\end{proof}
+
+For flat weights, $b\equiv1$, and $t\downarrow0$ the matrix $\mathcal A_b$ is the soft operator of the scalar problem. A floating-point computation, which is not part of the replay, gives $1.3181402$ for its largest eigenvalue, in agreement with $(2\pi\Cinf)^2=1.3181402\ldots$ to at least eight digits, so that with flat weights this reduction returns the scalar constant. For weights that decrease with $n$ the balance between the diagonal and the off-diagonal terms changes, and the theorem below shows that the largest Rayleigh quotient then lies above $(2\pi\Cinf)^2$.
+
+\subsection{Two weight sequences}
+
+The first sequence is the box weight
+\[
+b^{\rm cent}_n=\frac2\pi\arctan\frac{33/4}{w_n},\qquad n\ge0 .
+\]
+It is the weight sequence of the even box density $\mathbf 1_{\{|\xi|\le(33/4)\pi\tau\}}$ at the free widths $s_n=w_n$. These widths obey the width cone, so $b^{\rm cent}\in\mathcal W_{\rm cent}$, and since $b^{\rm cent}_n=\varphi_{w_n}(b^{\rm cent}_0)$ the sequence attains the lower bound of Proposition~\ref{prop:poisson} at every $n$. It decreases in $n$. The second sequence is the lower Harnack envelope with head weight $7/8$,
+\[
+b^{\rm H}_n=\max\Bigl\{\frac{7/8}{w_n},\ \tfrac78w_n-(w_n-1)\Bigr\},
+\]
+whose values are $7/8,\ 5/8,\ 3/8,\ 1/8$ for $n=0,1,2,3$ and $7/(8w_n)$ for $n\ge3$. The lower bounds in~\eqref{eq:harnack} hold by construction. Each of the two terms of the maximum is at most $1$, at most $\frac78w_n$ and at most $(\frac78+w_n-1)/w_n$; for the second term the last claim is equivalent to $(w_n^2-1)(\frac78-1)\le0$. Hence $b^{\rm H}\in\mathcal H$, and $b^{\rm H}$ also decreases in $n$. We do not claim that $b^{\rm H}$ is the weight sequence of an actual causal branch, and it probably is not; it is used only as a member of $\mathcal H$.
+
+\begin{theorem}\label{thm:barrier}
+There are finitely supported vectors $v^{\rm cent}$ and $v^{\rm H}$, with $160$ entries each, such that at $t=10^{-6}$
+\[
+R_{b^{\rm cent}}\bigl(t;v^{\rm cent}\bigr)>1.357186,\qquad R_{b^{\rm H}}\bigl(t;v^{\rm H}\bigr)>1.398311 .
+\]
+Consequently, if~\eqref{eq:edge} holds on $\mathcal W_{\rm cent}$ with reserve $d$, then $d<0.321407$ and $\Croute(\mathcal W_{\rm cent})>0.185411$, and the same is true on $\mathcal W_{\rm caus}$. If~\eqref{eq:edge} holds on $\mathcal H$ with reserve $d$, then $d<0.3008445$ and $\Croute(\mathcal H)>0.188201$. Both floors exceed $\Cinf$.
+\end{theorem}
+
+\begin{proof}
+The vectors are stored in the replay bundle. Only the diagonal of $\mathcal A_b$ contains an infinite sum, and it enters with a minus sign, so an upper bound for the tail suffices. Both weight sequences decrease and $p_{nm}>0$, so that for $n<L$
+\[
+\sum_{m\ge L}b_mp_{nm}\le b_L\sum_{m\ge L}p_{nm}=b_L\sum_{j=L-n}^{L+n}k_j,
+\]
+the sum over $m$ telescoping. We take $L=4000$ and evaluate the terms with $m<L$ one by one. With these bounds the quotient $R_b(t;v)$ is evaluated in Arb ball arithmetic at $192$ bits. It lies in a ball around $1.3571869310\ldots$ for $b^{\rm cent}$ and around $1.3983117364\ldots$ for $b^{\rm H}$, with radii below $2\times10^{-25}$, which gives the two lower bounds. Lemmas~\ref{lem:route} and~\ref{lem:sym} now give $d\le1-\Lambda\le1-R/2$ and $\Croute\ge\sqrt R/(2\pi)$, hence the stated bounds on $d$ and on $\Croute$ for $\mathcal W_{\rm cent}$ and for $\mathcal H$. Since $\mathcal W_{\rm cent}\subseteq\mathcal W_{\rm caus}$ the first pair holds on $\mathcal W_{\rm caus}$ as well. The final claim is the inequality $0.185411>0.18273$.
+\end{proof}
+
+Two rows already suffice. With $v$ supported on $n\in\{0,1\}$, namely $v=(0.94548797,\,0.32565701)$ for the box weight and $v=(0.95361671,\,0.30102355)$ for the Harnack weight, the same quotients exceed $1.3329$ and $1.3870$, and both numbers lie above $(2\pi\Cinf)^2=1.3181402\ldots$. The obstruction is therefore visible on the two lowest frequencies alone. For flat weights, by contrast, a floating-point computation gives $1.273649$ for the same two-row block, and many rows are needed before the scalar value is approached.
+
+\subsection{What the floor says}
+
+The proof of Section~\ref{sec:reduction} reaches the reserves $317/1000$ on centered branches and $119/400$ on $\mathcal H$, which correspond to $C_{\mathrm{cent},*}\approx0.1860139$ and $C_{\mathrm{caus},*}\approx0.1886506$ before the passage to the rational constants of Theorem~\ref{thm:main}. Hence the best constant that an edge-reserve proof on $\mathcal W_{\rm cent}$ can give lies in $[0.185411,\,0.186014]$, and the corresponding range on $\mathcal H$ is $[0.188201,\,0.188651]$. The constants $\Ccent$ and $\Ccaus$ of Theorem~\ref{thm:main} exceed these floors by less than $0.35\%$ and $0.29\%$, so the argument of this paper already lies very close to the most that the method can deliver.
+
+Measured against the interval $[\Cinf,\Ccent]$ that Theorem~\ref{thm:main} leaves open on centered branches, the floor $0.185411$ sits at the fraction $(0.185411-\Cinf)/(\Ccent-\Cinf)>0.805$. So more than $80.5\%$ of that interval lies below any constant an edge-reserve proof on $\mathcal W_{\rm cent}$ can produce. Against $[\Cinf,\Ccaus]$ the floor $0.188201$ of the relaxation $\mathcal H$ sits at a fraction above $0.911$. This second figure concerns $\mathcal H$ and not the causal class itself. For the causal class the floor that the theorem provides is the centered one, $0.185411$, which sits at a fraction of about $0.4468$ of $[\Cinf,\Ccaus]$.
+
+The theorem does not say that $\Cinf$ is out of reach, and it does not say that the true constant on centered branches is as large as $0.185411$. It says that an inequality for one edge, valid for every weight sequence of the class and every $t$ and $r$, cannot do better. The obstruction has a plausible source, which we state as an expectation and not as a result. In the instances above the term $k_0=1/t$ cancels from the pairing of a soft edge with itself, whereas on an actual branch the same soft edge also feeds the normal widths and thereby lowers its own weights. A frozen weight cannot see this feedback, and the two-row quotients suggest that it would have to be seen on the two lowest frequencies. Going below $0.185411$ on centered branches would therefore need either weights tied to the edge through the normal equation, which is a smaller class than the one used here, or an argument that is not an edge inequality at all.
+
+\section{An open problem}\label{sec:open}
+
+Let $S$ be the supremum of $\kB\Tlin/\sqrt\rho$ over all centered models with finitely many channels, at all finite glue energies. We know $\Cinf\le S\le\Ccent$, where the lower bound comes from the scalar case and the upper bound from Theorem~\ref{thm:main}, an interval of relative width $1.824\%$. For a single channel the supremum is $\Cinf$, and for coupled channels with energy-independent density of states the bound $\Cinf$ holds as well, so $S=\Cinf$ on those subclasses. For several channels with different energy-dependent densities of states it is not known whether $S$ equals $\Cinf$ or lies strictly above it.
+
+Two routes to a smaller constant are visible in the argument. The width cone used here compares each frequency only with the first, while the normal equation ties all frequencies together, so one may hope to use the full multi-frequency self-consistency beyond this pairwise relation. A different route would rearrange the operator across channels with unequal densities of states, rather than channel pair by channel pair. In the other direction, a family with finite-energy glue and unequal energy-dependent densities of states that exceeds $\Cinf$ would show that the sharp constant is larger. The soft-limit sequences of Section~\ref{sec:soft} have limit at most $\Cinf$, so they give no example of this kind.
+
+Section~\ref{sec:barrier} bears on both routes. It shows that a better inequality for one edge over the same weight classes cannot lower the constant below $0.185411$ on centered branches. The first route changes the class by tying the weights to the normal equation, and the second leaves the edge-by-edge form, so neither is excluded by that result.
+
+\section{Reproducibility}\label{sec:repro}
+
+A replay bundle accompanies this preprint. It holds the two independent checkers, the Lean file, the pinned closure data, the written proof from which this paper is drawn, the written proof of the soft-limit corollary, and the proofs from earlier work whose hashes the checkers verify before they start. The checkers use only the Python standard library. From the directory \texttt{OPTIMUM2/FINITE-ENERGY} of the bundle one runs
+\begin{center}\texttt{python -I -B verify.py}\end{center}
+and obtains exit status $0$ when everything passes. The driver runs the primary replay, which should exit with status $0$ and print the certified covering with $99$ causal and $107$ centered leaves; the independent replay, which should exit with status $0$ and print $245$ and $287$ leaves and the $72$ trial forms; thirteen deliberately corrupted runs of the primary replay and eight of the independent one, each of which must exit with status $1$ and a line beginning \texttt{REJECT}; and the Lean file with Lean~4.35.0, which should exit with status $0$. The Lean step calls the Lean toolchain manager at a fixed path on the author's workstation, and that path has to be adapted on another machine. On the author's workstation the whole run takes about one minute. The directory layout of the bundle mirrors that of the earlier releases because the replays verify the hashes of the inherited proof files at fixed relative paths, and a file \texttt{SOURCE-PINS.json} records the SHA-256 digest of each bundled member against its source.
+
+What is checked is the finite rational part of the argument. Anything analytic, namely the Harnack and Poisson inequalities, the width cone, the reduction from the edge inequality to the theorem, and the soft-limit locking, is in the written proof and not in the replay.
+
+The certificates of Section~\ref{sec:barrier} are replayed separately, in the directory \texttt{OPTIMUM2/SHARP} of the bundle. In contrast to the checkers above, the script \texttt{replay.py} there needs the Python package \texttt{python-flint}, which provides Arb interval arithmetic, and it reads the stored trial vectors from \texttt{cert\us vectors.json}. Run as \texttt{python -B replay.py} it should exit with status $0$ after printing the enclosures of the two quotients, of the two floors and of the two-row quotients. Nine deliberately corrupted runs, listed in the README of the bundle, must each exit with status $1$ and a line beginning \texttt{REJECT}. The script \texttt{verify\us sharp.py} in the same directory runs all ten and checks the exit statuses. It is not part of \texttt{verify.py}, so that the pinned files of the first part of the bundle stay untouched. The replay compares the quotients with $(2\pi c)^2$, where $c=0.1827262477723295176168720$ is the upper endpoint of an enclosure of the scalar constant $\Cinf$ that is stored in the script. This value is taken from the $\gamma=2$ row of the certified table in~\cite{gamma}. The enclosures of that record are conditional on the analytic tail estimates in its written proof, and the replay takes them as stated; the comparison itself needs only a few of the digits. It checks the evaluation of the quotients, the inequalities~\eqref{eq:harnack} for $m\le4000$ and the arithmetic that follows. The two lemmas, the membership of the weights in their classes for every row, and the tail estimate are proved in Section~\ref{sec:barrier} and are not replayed. The two files of \texttt{OPTIMUM2/SHARP} that are pinned are byte copies of their sources and are recorded in \texttt{SOURCE-PINS.json}.
+
+\section*{Supporting material and disclosure}
+
+This preprint has not been peer reviewed. The result is a theorem about linearised Eliashberg theory, and no material, synthesis or measurement is claimed. AI agents generated proofs, certificates, code, and manuscript drafts and edits under D.~Rens' direction and review. The independent reviews of the proof and of the certificates were carried out by separate AI agents. The replay bundle accompanies the preprint. The earlier preprints~\cite{predecessor,optimum}, the scalar-case paper~\cite{finite} and the certificate record~\cite{gamma} are identified by their DOIs in the references.
+
+\begingroup
+\raggedright
+\bibliographystyle{plain}
+\bibliography{refs}
+\endgroup
+
+\end{document}

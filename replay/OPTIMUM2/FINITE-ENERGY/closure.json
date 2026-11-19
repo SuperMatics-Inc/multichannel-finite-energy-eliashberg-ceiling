@@ -1,0 +1,11 @@
+{
+  "schema": "univ-glue-finite-energy-proof-closure-v1",
+  "source_sha256": {
+    "SHARP-Q2/RIGOR.md": "7654990f2115df65a039c89b62ace204b5bebdc2c1f208b8aa9837d14dabc086",
+    "CENTERED-GAP/RIGOR.md": "679d7c532b0f4c36b48a0e724bf04feb6698cf31874409ae81b438b9796a3488",
+    "GENERAL/RIGOR.md": "2ff32090c88260d7c8582be2247555f8cc31e862a39aea6e69497d5a49b17792",
+    "OPTIMUM/RIGOR.md": "59e95d2e5c8f8695a74ad634dba31a6b785c39472dbfaf07248d60607404b367",
+    "OPTIMUM2/RIGOR.md": "bc3de69705286bfd26ac7a9e478a6f3050dbe18405b3ef08d966f7767903dffb",
+    "note-centered/PHYS-Q2/RIGOR.md": "01c82d95b084ca8d02f079f7d82364eff67ebeb7bf85e93edca715c17adbe1a9"
+  }
+}

@@ -1,0 +1,96 @@
+name: replay-and-paper
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify release manifest and fifteen transport pins
+        run: |
+          set -euo pipefail
+          sha256sum -c MANIFEST.sha256
+          python - <<'PY'
+          import hashlib, json, pathlib
+          root = pathlib.Path('replay')
+          pins = json.loads((root / 'SOURCE-PINS.json').read_text())['members']
+          assert len(pins) == 15
+          for name, entry in pins.items():
+              raw = (root / name).read_bytes()
+              assert len(raw) == entry['bytes'], name
+              assert hashlib.sha256(raw).hexdigest() == entry['sha256'] == entry['source_sha256'], name
+          print('PASS: SOURCE-PINS 15/15')
+          PY
+      - name: Install exact Lean and satisfy unchanged driver path
+        working-directory: replay/OPTIMUM2/FINITE-ENERGY
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain leanprover/lean4:v4.35.0
+          mkdir -p 'C:/Users/davis/.elan/bin'
+          cat > 'C:/Users/davis/.elan/bin/elan.exe' <<'SH'
+          #!/bin/sh
+          # Keep admitted replay bytes; Linux Lean needs a larger runtime cap.
+          if [ "$#" -eq 6 ] && [ "$1" = run ] && [ "$2" = leanprover/lean4:v4.35.0 ] && [ "$3" = lean ] && [ "$4" = --threads=1 ] && [ "$5" = --memory=500 ] && [ "$6" = Finite.lean ]; then
+              echo 'CI adapter: unchanged Lean proof, memory cap 500 -> 2048 MB' >&2
+              exec "$HOME/.elan/bin/elan" "$1" "$2" "$3" "$4" --memory=2048 "$6"
+          fi
+          exec "$HOME/.elan/bin/elan" "$@"
+          SH
+          chmod +x 'C:/Users/davis/.elan/bin/elan.exe'
+          'C:/Users/davis/.elan/bin/elan.exe' run leanprover/lean4:v4.35.0 lean --version
+      - name: Both exact checkers, twenty-one guards and finite Lean
+        working-directory: replay/OPTIMUM2/FINITE-ENERGY
+        run: |
+          set -euo pipefail
+          python -I -B verify.py | tee "$RUNNER_TEMP/replay.out"
+          grep -qF 'PASS: two exact bases; twenty-one guarded mutants; finite Lean 4.35.0' "$RUNNER_TEMP/replay.out"
+      - name: Install pinned Arb dependency
+        run: python -m pip install python-flint==0.8.0
+      - name: SHARP interval certificate and nine mutants
+        working-directory: replay/OPTIMUM2/SHARP
+        run: |
+          set -euo pipefail
+          python -I -B verify_sharp.py | tee "$RUNNER_TEMP/sharp.out"
+          grep -qF 'PASS: base replay passes; nine corrupted runs rejected' "$RUNNER_TEMP/sharp.out"
+      - name: Disclosure and prose safeguards
+        run: |
+          set -euo pipefail
+          if grep -nE '—|---|reserved DOI' paper/main.tex paper/refs.bib README.md; then exit 1; fi
+          grep -qF 'This preprint has not been peer reviewed.' paper/main.tex
+          grep -qF 'This preprint has not been peer reviewed.' README.md
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Tectonic and poppler
+        run: |
+          set -euo pipefail
+          curl -fsSL https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz | sudo tar -xz -C /usr/local/bin
+          tectonic --version
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Build and enforce warning, page and link gates
+        working-directory: paper
+        run: |
+          set -euo pipefail
+          tectonic --keep-logs main.tex
+          if grep -nE 'Overfull|Underfull|Undefined|Warning|Citation.*undefined|There were' main.log; then exit 1; fi
+          pdfinfo main.pdf > info.txt
+          grep -qE '^Pages: +15$' info.txt
+          pdfinfo -url main.pdf > urls.txt
+          grep -qF 'https://orcid.org/0000-0001-5839-5197' urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24380829' urls.txt
+          grep -qF 'https://doi.org/10.5281/zenodo.24380827' urls.txt
+          grep -qF 'https://github.com/SuperMatics-Inc/multichannel-finite-energy-eliashberg-ceiling' urls.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: multichannel-finite-energy-eliashberg-ceiling-paper
+          path: paper/main.pdf
+          if-no-files-found: error
